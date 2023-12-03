@@ -3,44 +3,58 @@ use std::io::prelude::*;
 use std::io::BufReader;
 use std::fs::File;
 
-fn second_num(s: &String) -> usize {
-    let bytes = s.as_bytes();
+fn find_num(s: &String, rev: bool) -> usize {
+    let mut sub;
 
-    let mut x = 0;
-    for (i, &item) in bytes.iter().enumerate() {
-        match item {
-            b'0' => x = 0,
-            b'1' => x = 1,
-            b'2' => x = 2,
-            b'3' => x = 3,
-            b'4' => x = 4,
-            b'5' => x = 5,
-            b'6' => x = 6,
-            b'7' => x = 7,
-            b'8' => x = 8,
-            b'9' => x = 9,
-            _ => continue,
+    for (i, _) in s.chars().enumerate() {
+        if rev
+        {
+            sub = &s[(s.len() - i - 1)..];
         }
-    }
-    return x;
-}
-
-fn first_num(s: &String) -> usize {
-    let bytes = s.as_bytes();
-
-    for (i, &item) in bytes.iter().enumerate() {
-        match item {
-            b'0' => return 0,
-            b'1' => return 1,
-            b'2' => return 2,
-            b'3' => return 3,
-            b'4' => return 4,
-            b'5' => return 5,
-            b'6' => return 6,
-            b'7' => return 7,
-            b'8' => return 8,
-            b'9' => return 9,
-            _ => continue,
+        else
+        {
+            sub = &s[..i];
+        }
+        if sub.contains("0") {
+            return 0;
+        } else if sub.contains("1") {
+            return 1
+        } else if sub.contains("2") {
+            return 2
+        } else if sub.contains("3") {
+            return 3
+        } else if sub.contains("4") {
+            return 4
+        } else if sub.contains("5") {
+            return 5
+        } else if sub.contains("6") {
+            return 6
+        } else if sub.contains("7") {
+            return 7
+        } else if sub.contains("8") {
+            return 8
+        } else if sub.contains("9") {
+            return 9
+        } else if sub.contains("zero") {
+            return 0
+        } else if sub.contains("one") {
+            return 1
+        } else if sub.contains("two") {
+            return 2
+        } else if sub.contains("three") {
+            return 3
+        } else if sub.contains("four") {
+            return 4
+        } else if sub.contains("five") {
+            return 5
+        } else if sub.contains("six") {
+            return 6
+        } else if sub.contains("seven") {
+            return 7
+        } else if sub.contains("eight") {
+            return 8
+        } else if sub.contains("nine") {
+            return 9
         }
     }
     return 0;
@@ -58,7 +72,8 @@ fn main() -> io::Result<()> {
         {
             break;
         }
-        num += first_num(&buffer) * 10 + second_num(&buffer);
+        println!("first num: {}, second num: {}", find_num(&buffer, false),find_num(&buffer, true));
+        num += find_num(&buffer, false) * 10 + find_num(&buffer, true);
         buffer.clear();
     }
     println!("{num}");
