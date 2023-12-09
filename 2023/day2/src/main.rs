@@ -56,17 +56,22 @@ fn is_valid_game(buffer: &String) -> bool {
                 None => return false,
             }
             let cube_count = cube_parsed[..space].parse::<i32>().unwrap();
-            match cube_parsed[space + 1..].to_string() {
-                f if f == "red".to_string() => reds += cube_count,
-                f if f == "green".to_string() => greens += cube_count,
-                f if f == "blue".to_string() => blues += cube_count,
+            match cube_parsed.find('\n') {
+                Some(index) => cube_parsed = &cube_parsed[..index],
+                None => (),
+            }
+            println!("|{}|", &cube_parsed[space + 1..]);
+            match &cube_parsed[space + 1..] {
+                "red" => reds += cube_count,
+                "green" => greens += cube_count,
+                "blue" => blues += cube_count,
                 _ => (),
             }
         }
-        // println!("{}, {}, {}", reds, greens, blues);
         if reds > max_red || greens > max_green || blues > max_blue {
             return false;
         }
+        // println!("{}, {}, {}", reds, greens, blues);
     }
     true
 }
