@@ -82,19 +82,18 @@ fn part_two(lines: &mut Vec<String>) {
             }
         }
         let mut tmp;
-        println!("matches: {}", card_total);
+        // println!("matches: {}", card_total);
         tmp = current_card + 1;
         while card_total != 0 {
             card_counts[tmp] += card_counts[current_card];
             tmp += 1;
             card_total -= 1;
         }
-        card_total = 0;
         current_card += 1;
     }
     let mut total: i32 = 0;
     for num in card_counts {
-        println!("num: {}", num);
+        // println!("num: {}", num);
         total += num;
     }
     println!("{}", total);
